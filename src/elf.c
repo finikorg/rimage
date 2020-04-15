@@ -94,6 +94,7 @@ static int elf_read_sections(struct image *image, struct module *module,
 			module->num_bss++;
 			break;
 		case SHT_PROGBITS:
+		case SHT_INIT_ARRAY:
 			/* text or data */
 			module->fw_size += section[i].size;
 
@@ -279,6 +280,9 @@ static void elf_module_size(struct image *image, struct module *module,
 		break;
 	case SHT_NOTE:
 		fprintf(stdout, "\tNOTE\t");
+		break;
+	case SHT_INIT_ARRAY:
+		fprintf(stdout, "\tINIT_ARRAY\t");
 		break;
 	default:
 		break;
